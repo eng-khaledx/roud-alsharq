@@ -1735,6 +1735,34 @@
             }
         }
     </script>
+<!-- 1. استدعاء مكتبة Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- 2. كود الاتصال وقراءة البيانات -->
+<script>
+    // ربط الموقع بحسابك (استبدل الكلام بالبيانات التي نسختها من Supabase)
+    const SUPABASE_URL = "ضع_هنا_رابط_Project_URL_الخاص_بك";
+    const SUPABASE_ANON_KEY = "ضع_هنا_مفتاح_anon_public_الخاص_بك";
+    
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // دالة جلب السيارات من الجدول واختبار الاتصال
+    async function loadCars() {
+        const { data: cars, error } = await supabase
+            .from('cars') 
+            .select('*');
+
+        if (error) {
+            console.error('خطأ في جلب البيانات من Supabase:', error);
+            return;
+        }
+
+        console.log("🔥 تم الاتصال بنجاح! السيارات المتاحة في السيرفر هي:", cars);
+    }
+
+    // تشغيل الدالة فور فتح الموقع للاختبار
+    document.addEventListener('DOMContentLoaded', loadCars);
+</script>
 </body>
 
 </html>
